@@ -54,7 +54,7 @@ int main(int argc, char ** argv)
     scene.addItem(rtgi);
     scene.addItem(vgi);
 
-    QGraphicsView* view = new QGraphicsView(&scene);
+    QGraphicsView * view = new QGraphicsView(&scene);
     CGAL::Qt::GraphicsViewNavigation navigation;
     view->installEventFilter(&navigation);
     view->viewport()->installEventFilter(&navigation);

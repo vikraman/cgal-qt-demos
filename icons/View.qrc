@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/cgal/view" >
+        <file>Triangulation.png</file>
+        <file>Voronoi_diagram.png</file>
+    </qresource>
+</RCC>

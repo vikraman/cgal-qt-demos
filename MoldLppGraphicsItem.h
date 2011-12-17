@@ -17,24 +17,24 @@ public:
 public:
     inline QRectF boundingRect() const;
     inline void paint(QPainter * painter,
-               const QStyleOptionGraphicsItem * option,
-               QWidget * widget);
+                      const QStyleOptionGraphicsItem * option,
+                      QWidget * widget);
 
     const QPen& lpPen() const
-        {
-            return lp_pen;
-        }
+    {
+        return lp_pen;
+    }
 
     void setLpPen(const QPen& pen)
-        {
-            lp_pen = pen;
-        }
+    {
+        lp_pen = pen;
+    }
 
     void setVisible(const bool b)
-        {
-            visible = b;
-            update();
-        }
+    {
+        visible = b;
+        update();
+    }
 
 protected:
     ML * lp;
@@ -71,25 +71,27 @@ template <typename ML>
 QRectF
 MoldLppGraphicsItem<ML>::boundingRect() const
 {
-    if(scene()){
-        return CGAL::Qt::viewportsBbox(scene());
-    }
+    if(scene())
+        {
+            return CGAL::Qt::viewportsBbox(scene());
+        }
     return QRectF();
 }
 
 template <typename ML>
 void
 MoldLppGraphicsItem<ML>::paint(QPainter * painter,
-                              const QStyleOptionGraphicsItem * option,
-                              QWidget * widget)
+                               const QStyleOptionGraphicsItem * option,
+                               QWidget * widget)
 {
     painter->setPen(this->lpPen());
     painterostream = CGAL::Qt::PainterOstream<K>(painter);
 
-    if (visible) {
-        typename K::Circle_2 c(lp->lpoint(), 5);
-        painterostream << c;
-    }
+    if (visible)
+        {
+            typename K::Circle_2 c(lp->lpoint(), 5);
+            painterostream << c;
+        }
 }
 
 #endif

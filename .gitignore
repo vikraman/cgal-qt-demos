@@ -10,3 +10,4 @@ qrc_*.*
 moc_*.*
 ui_*.*
 *.txt
+*.orig

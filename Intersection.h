@@ -3,7 +3,7 @@
 
 #include <CGAL/Sweep_line_2_algorithms.h>
 
-template <class Traits_IS,
+template < class Traits_IS,
          class Container_IS = std::vector<typename Traits_IS::Segment_2>,
          class Container_IP = std::vector<typename Traits_IS::Point_2> >
 class Intersection
@@ -27,59 +27,59 @@ public:
     }
     Intersection(const Intersection<Traits_IS, Container_IS>& is)
         : d_container(is.d_container), traits(is.traits)
-        {
-            update();
-        }
+    {
+        update();
+    }
     template <class InputIterator>
-        Intersection(InputIterator first, InputIterator last,
-                   Traits is_traits = Traits())
+    Intersection(InputIterator first, InputIterator last,
+                 Traits is_traits = Traits())
         : d_container(), traits(is_traits)
-            {
-                std::copy(first, last, std::back_inserter(d_container));
-                update();
-            }
+    {
+        std::copy(first, last, std::back_inserter(d_container));
+        update();
+    }
 
     template <class InputIterator>
-        void insert(InputIterator first,
-                    InputIterator last,
-                    Traits is_traits = Traits())
-            {
-                std::copy(first, last, std::back_inserter(d_container));
-                update();
-            }
+    void insert(InputIterator first,
+                InputIterator last,
+                Traits is_traits = Traits())
+    {
+        std::copy(first, last, std::back_inserter(d_container));
+        update();
+    }
 
     void insert(Segment_2 s)
-        {
-            d_container.push_back(s);
-            update();
-        }
+    {
+        d_container.push_back(s);
+        update();
+    }
 
     void erase(Segment_iterator first, Segment_iterator last)
-        {
-            d_container.erase(first, last);
-            update();
-        }
+    {
+        d_container.erase(first, last);
+        update();
+    }
 
     void clear()
-        {
-            d_container.clear();
-            update();
-        }
+    {
+        d_container.clear();
+        update();
+    }
 
     std::size_t size() const
-        {
-            return is.size();
-        }
-    
+    {
+        return is.size();
+    }
+
     Point_const_iterator is_begin()
-        {
-            return is.begin();
-        }
+    {
+        return is.begin();
+    }
 
     Point_const_iterator is_end()
-        {
-            return is.end();
-        }
+    {
+        return is.end();
+    }
 
 private:
     Container_IS d_container;
@@ -88,11 +88,11 @@ private:
     Container_IP is;
 
     void update()
-        {
-            is.clear();
-            CGAL::compute_intersection_points (d_container.begin(), d_container.end(),
-                                               std::back_inserter(is));
-        }
+    {
+        is.clear();
+        CGAL::compute_intersection_points (d_container.begin(), d_container.end(),
+                                           std::back_inserter(is));
+    }
 };
 
 #endif

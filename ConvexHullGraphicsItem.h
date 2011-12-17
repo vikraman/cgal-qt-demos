@@ -19,24 +19,24 @@ public:
 public:
     inline QRectF boundingRect() const;
     inline void paint(QPainter * painter,
-               const QStyleOptionGraphicsItem * option,
-               QWidget * widget);
+                      const QStyleOptionGraphicsItem * option,
+                      QWidget * widget);
 
     const QPen& hullPen() const
-        {
-            return hull_pen;
-        }
+    {
+        return hull_pen;
+    }
 
     void setHullPen(const QPen& pen)
-        {
-            hull_pen = pen;
-        }
+    {
+        hull_pen = pen;
+    }
 
     void setVisible(const bool b)
-        {
-            visible = b;
-            update();
-        }
+    {
+        visible = b;
+        update();
+    }
 
 protected:
     CH * chull;
@@ -69,39 +69,43 @@ template <typename CH>
 QRectF
 ConvexHullGraphicsItem<CH>::boundingRect() const
 {
-    if(scene()){
-        return CGAL::Qt::viewportsBbox(scene());
-    }
+    if(scene())
+        {
+            return CGAL::Qt::viewportsBbox(scene());
+        }
     return QRectF();
 }
 
 template <typename CH>
 void
 ConvexHullGraphicsItem<CH>::paint(QPainter * painter,
-                              const QStyleOptionGraphicsItem * option,
-                              QWidget * widget)
+                                  const QStyleOptionGraphicsItem * option,
+                                  QWidget * widget)
 {
     painter->setPen(this->hullPen());
     painterostream = CGAL::Qt::PainterOstream<K>(painter);
 
-    if (visible) {
-        typename CH::Point_const_iterator it0, it1;
+    if (visible)
+        {
+            typename CH::Point_const_iterator it0, it1;
 
-        if (chull->size() < 2) return;
+            if (chull->size() < 2) return;
 
-        for (it0 = it1 = chull->chull_begin(), it1++;
-             it1 != chull->chull_end();
-             it0++, it1++) {
-            Segment_2 s(*it0, *it1);
-            painterostream << s;
+            for (it0 = it1 = chull->chull_begin(), it1++;
+                    it1 != chull->chull_end();
+                    it0++, it1++)
+                {
+                    Segment_2 s(*it0, *it1);
+                    painterostream << s;
+                }
+
+            if (chull->size() > 2)
+                {
+                    it1 = chull->chull_begin();
+                    Segment_2 s(*it0, *it1);
+                    painterostream << s;
+                }
         }
-
-        if (chull->size() > 2) {
-            it1 = chull->chull_begin();
-            Segment_2 s(*it0, *it1);
-            painterostream << s;
-        }
-    }
 }
 
 #endif

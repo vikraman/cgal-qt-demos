@@ -16,24 +16,24 @@ public:
 public:
     inline QRectF boundingRect() const;
     inline void paint(QPainter * painter,
-               const QStyleOptionGraphicsItem * option,
-               QWidget * widget);
+                      const QStyleOptionGraphicsItem * option,
+                      QWidget * widget);
 
     const QPen& isPen() const
-        {
-            return is_pen;
-        }
+    {
+        return is_pen;
+    }
 
     void setIsPen(const QPen& pen)
-        {
-            is_pen = pen;
-        }
+    {
+        is_pen = pen;
+    }
 
     void setVisible(const bool b)
-        {
-            visible = b;
-            update();
-        }
+    {
+        visible = b;
+        update();
+    }
 
 protected:
     IS * is;
@@ -66,29 +66,32 @@ template <typename IS>
 QRectF
 IntersectionGraphicsItem<IS>::boundingRect() const
 {
-    if(scene()){
-        return CGAL::Qt::viewportsBbox(scene());
-    }
+    if(scene())
+        {
+            return CGAL::Qt::viewportsBbox(scene());
+        }
     return QRectF();
 }
 
 template <typename IS>
 void
 IntersectionGraphicsItem<IS>::paint(QPainter * painter,
-                              const QStyleOptionGraphicsItem * option,
-                              QWidget * widget)
+                                    const QStyleOptionGraphicsItem * option,
+                                    QWidget * widget)
 {
     painter->setPen(this->isPen());
     painterostream = CGAL::Qt::PainterOstream<K>(painter);
 
-    if (visible) {
-        typename IS::Point_const_iterator it;
+    if (visible)
+        {
+            typename IS::Point_const_iterator it;
 
-        for (it = is->is_begin(); it != is->is_end(); it++) {
-            typename K::Circle_2 c (*it, 5);
-            painterostream << c;
+            for (it = is->is_begin(); it != is->is_end(); it++)
+                {
+                    typename K::Circle_2 c (*it, 5);
+                    painterostream << c;
+                }
         }
-    }
 }
 
 #endif

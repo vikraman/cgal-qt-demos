@@ -116,7 +116,7 @@ MainWindow::processInputLines(CGAL::Object o)
             segments.push_back(Segment_2(points.front(), points.back()));
             is.insert(segments.begin(), segments.end());
             ml.insert(segments.begin(), segments.end());
-            scene.addLine(points.front().x() ,points.front().y(), points.back().x() ,points.back().y(), QPen(QColor(255,0,0)));
+            scene.addLine(points.front().x() , points.front().y(), points.back().x() , points.back().y(), QPen(QColor(255, 0, 0)));
         }
     emit(changed());
 }

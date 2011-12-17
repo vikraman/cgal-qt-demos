@@ -102,6 +102,7 @@ private:
         double u, v;
         for(i = 0; i < (a.size() - 1); i = i + 2)
             {
+                double j;
                 x.resize(x.size() + 1);
                 x[x.size()-1].resize(3);
                 j = ((a[i].second - a[i+1].second) / (a[i].first - a[i+1].first));
@@ -112,7 +113,7 @@ private:
         std::vector <double> result(2);
         result[0] = 0.0;
         result[1] = (x[0][2] / x[0][1]);
-        for(i = 1; i < x.size(); i++)
+        for(i = 1; i < a.size()/2; i++)
             {
                 if((result[0]*x[i][0] + result[1]*x[i][1]) <= x[i][2])
                     continue;

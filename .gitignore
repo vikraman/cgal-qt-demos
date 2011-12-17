@@ -4,7 +4,8 @@ Makefile
 cmake_install.cmake
 main
 *.qrc.depends
-*/*.qrc.depends
+icons/*.qrc.depends
+resources/*.qrc.depends
 qrc_*.*
 moc_*.*
 ui_*.*

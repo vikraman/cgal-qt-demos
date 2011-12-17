@@ -64,10 +64,14 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionInsertPoint"/>
+   <addaction name="actionInsertLine"/>
+   <addaction name="separator"/>
    <addaction name="actionShowRegular"/>
    <addaction name="actionShowPowerdiagram"/>
    <addaction name="actionShowConvexHull"/>
    <addaction name="actionShowMoldLpp"/>
+   <addaction name="actionShowIntersection"/>
+   <addaction name="separator"/>
    <addaction name="actionRecenter"/>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -101,10 +105,13 @@
      <string>&amp;Tools</string>
     </property>
     <addaction name="actionInsertPoint"/>
+    <addaction name="actionInsertLine"/>
+    <addaction name="separator"/>
     <addaction name="actionShowRegular"/>
     <addaction name="actionShowPowerdiagram"/>
     <addaction name="actionShowConvexHull"/>
     <addaction name="actionShowMoldLpp"/>
+    <addaction name="actionShowIntersection"/>
     <addaction name="separator"/>
     <addaction name="actionRecenter"/>
    </widget>
@@ -142,9 +149,6 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
    <property name="icon">
     <iconset>
      <normaloff>:/cgal/Input/inputPoint.png</normaloff>:/cgal/Input/inputPoint.png</iconset>
@@ -157,6 +161,21 @@
    </property>
    <property name="statusTip">
     <string>Left: Insert vtx</string>
+   </property>
+  </action>
+  <action name="actionInsertLine">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/Input.qrc">
+    <normaloff>:/cgal/Input/inputPolyline.png</normaloff>:/cgal/Input/inputPolyline.png</iconset>
+   </property>
+   <property name="text">
+    <string>Input Line</string>
+   </property>
+   <property name="toolTip">
+    <string>Input Lines</string>
    </property>
   </action>
   <action name="actionClear">
@@ -225,13 +244,28 @@
    </property>
    <property name="icon">
     <iconset>
-        <normaloff>:/cgal/view/Mold_lpp.png</normaloff>:/cgal/view/Mold_lpp.png</iconset>
+     <normaloff>:/cgal/view/Mold_lpp.png</normaloff>:/cgal/view/Mold_lpp.png</iconset>
    </property>
    <property name="text">
     <string>Show &amp;Mold Lpp</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionShowIntersection">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/View.qrc">
+    <normaloff>:/cgal/view/Intersection.png</normaloff>:/cgal/view/Intersection.png</iconset>
+   </property>
+   <property name="text">
+    <string>Show Intersection</string>
+   </property>
+   <property name="toolTip">
+    <string>Show Intersection Points</string>
    </property>
   </action>
   <action name="actionLoadPoints">

@@ -43,11 +43,22 @@ MainWindow::MainWindow()
     scene.addItem(chgi);
     chgi->hide();
 
+    isgi = new IntersectionGraphicsItem<Is>(&is);
+
+    QObject::connect(this, SIGNAL(changed()),
+                     isgi, SLOT(modelChanged()));
+
+    isgi->setIsPen(QPen(Qt::cyan, 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    scene.addItem(isgi);
+    isgi->hide();
+
     pi = new CGAL::Qt::GraphicsViewCircleInput<K>(this, &scene, 1);
-
-
     QObject::connect(pi, SIGNAL(generate(CGAL::Object)),
-                     this, SLOT(processInput(CGAL::Object)));
+                     this, SLOT(processInputPoints(CGAL::Object)));
+
+    li = new CGAL::Qt::GraphicsViewPolylineInput<K>(this, &scene, 2, 0);
+    QObject::connect(li, SIGNAL(generate(CGAL::Object)),
+                     this, SLOT(processInputLines(CGAL::Object)));
 
     trv = new CGAL::Qt::RegularTriangulationRemoveVertex<Regular>(&rt, this);
     QObject::connect(trv, SIGNAL(modelChanged()),
@@ -58,8 +69,10 @@ MainWindow::MainWindow()
 
     QActionGroup* ag = new QActionGroup(this);
     ag->addAction(this->actionInsertPoint);
+    ag->addAction(this->actionInsertLine);
 
     this->actionInsertPoint->setChecked(true);
+    this->actionInsertLine->setChecked(false);
     this->actionShowRegular->setChecked(true);
 
     scene.setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -77,7 +90,7 @@ MainWindow::MainWindow()
 
 
 void
-MainWindow::processInput(CGAL::Object o)
+MainWindow::processInputPoints(CGAL::Object o)
 {
     std::pair<Point_2, K::FT > center_sqr;
     if(CGAL::assign(center_sqr, o))
@@ -90,6 +103,20 @@ MainWindow::processInput(CGAL::Object o)
     emit(changed());
 }
 
+
+void
+MainWindow::processInputLines(CGAL::Object o)
+{
+    std::list<Point_2> points;
+    if (CGAL::assign(points, o))
+        {
+            std::vector<Segment_2> segments;
+            segments.push_back(Segment_2(points.front(), points.back()));
+            is.insert(segments.begin(), segments.end());
+            scene.addLine(points.front().x() ,points.front().y(), points.back().x() ,points.back().y(), QPen(QColor(255,0,0)));
+        }
+    emit(changed());
+}
 
 void
 MainWindow::on_actionInsertPoint_toggled(bool checked)
@@ -106,6 +133,20 @@ MainWindow::on_actionInsertPoint_toggled(bool checked)
         }
 }
 
+
+
+void
+MainWindow::on_actionInsertLine_toggled(bool checked)
+{
+    if(checked)
+        {
+            scene.installEventFilter(li);
+        }
+    else
+        {
+            scene.removeEventFilter(li);
+        }
+}
 
 
 void
@@ -134,6 +175,14 @@ MainWindow::on_actionShowMoldLpp_toggled(bool checked)
 {
     //mgi->setVisible(checked);
 }
+
+
+void
+MainWindow::on_actionShowIntersection_toggled(bool checked)
+{
+    isgi->setVisible(checked);
+}
+
 
 void
 MainWindow::on_actionClear_triggered()

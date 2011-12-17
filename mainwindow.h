@@ -23,10 +23,12 @@
 #include <CGAL/Qt/GraphicsViewPolylineInput.h>
 #include <CGAL/Qt/RegularTriangulationGraphicsItem.h>
 #include <CGAL/Qt/PowerdiagramGraphicsItem.h>
-//#include "moldlppGraphicsItem.h"
 
 #include "ConvexHull.h"
 #include "ConvexHullGraphicsItem.h"
+
+#include "MoldLpp.h"
+#include "MoldLppGraphicsItem.h"
 
 #include "Intersection.h"
 #include "IntersectionGraphicsItem.h"
@@ -44,9 +46,10 @@ typedef K::Segment_2 Segment_2;
 typedef K::Iso_rectangle_2 Iso_rectangle_2;
 
 typedef double Weight;
-typedef CGAL::Regular_triangulation_euclidean_traits_2<K, Weight>  Gt;
+typedef CGAL::Regular_triangulation_euclidean_traits_2<K, Weight> Gt;
 typedef CGAL::Regular_triangulation_2<Gt> Regular;
 typedef ConvexHull<K, std::list<Point_2> > CHull;
+typedef MoldLpp<K, std::list<Segment_2>, Point_2> Ml;
 typedef Intersection<K, std::list<Segment_2>, std::list<Point_2> > Is;
 
 class MainWindow :
@@ -58,13 +61,14 @@ class MainWindow :
 private:
     Regular rt;
     CHull ch;
+    Ml ml;
     Is is;
     QGraphicsScene scene;
 
     CGAL::Qt::RegularTriangulationGraphicsItem<Regular> * rgi;
     CGAL::Qt::PowerdiagramGraphicsItem<Regular> * vgi;
-    //CGAL::Qt::MoldGraphicsItem<Regular> * mgi;
     ConvexHullGraphicsItem<CHull> * chgi;
+    MoldLppGraphicsItem<Ml> * mgi;
     IntersectionGraphicsItem<Is> * isgi;
 
     CGAL::Qt::RegularTriangulationRemoveVertex<Regular> * trv;

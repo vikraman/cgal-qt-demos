@@ -262,7 +262,10 @@
     <normaloff>:/cgal/view/Intersection.png</normaloff>:/cgal/view/Intersection.png</iconset>
    </property>
    <property name="text">
-    <string>Show Intersection</string>
+    <string>Show I&amp;ntersection</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
    <property name="toolTip">
     <string>Show Intersection Points</string>

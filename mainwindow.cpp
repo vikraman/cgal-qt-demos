@@ -24,15 +24,6 @@ MainWindow::MainWindow()
     scene.addItem(vgi);
     vgi->hide();
 
-    // Mold
-    //mgi = new CGAL::Qt::MoldGraphicsItem<Regular>(&rt);
-
-    //QObject::connect(this, SIGNAL(changed()),
-    //                 mgi, SLOT(modelChanged()));
-
-    //mgi->setVerticesPen(QPen(Qt::red, 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-    //scene.addItem(mgi);
-
     // ConvexHull
     chgi = new ConvexHullGraphicsItem<CHull>(&ch);
 
@@ -43,6 +34,17 @@ MainWindow::MainWindow()
     scene.addItem(chgi);
     chgi->hide();
 
+    // MoldLpp
+    mgi = new MoldLppGraphicsItem<Ml>(&ml);
+
+    QObject::connect(this, SIGNAL(changed()),
+                     mgi, SLOT(modelChanged()));
+
+    mgi->setLpPen(QPen(Qt::green, 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    scene.addItem(mgi);
+    mgi->hide();
+
+    // Intersection
     isgi = new IntersectionGraphicsItem<Is>(&is);
 
     QObject::connect(this, SIGNAL(changed()),
@@ -113,6 +115,7 @@ MainWindow::processInputLines(CGAL::Object o)
             std::vector<Segment_2> segments;
             segments.push_back(Segment_2(points.front(), points.back()));
             is.insert(segments.begin(), segments.end());
+            ml.insert(segments.begin(), segments.end());
             scene.addLine(points.front().x() ,points.front().y(), points.back().x() ,points.back().y(), QPen(QColor(255,0,0)));
         }
     emit(changed());
@@ -173,7 +176,7 @@ MainWindow::on_actionShowConvexHull_toggled(bool checked)
 void
 MainWindow::on_actionShowMoldLpp_toggled(bool checked)
 {
-    //mgi->setVisible(checked);
+    mgi->setVisible(checked);
 }
 
 

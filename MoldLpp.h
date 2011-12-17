@@ -113,7 +113,7 @@ private:
         std::vector <double> result(2);
         result[0] = 0.0;
         result[1] = (x[0][2] / x[0][1]);
-        for(i = 1; i < a.size()/2; i++)
+        for(i = 1; i < a.size() / 2; i++)
             {
                 if((result[0]*x[i][0] + result[1]*x[i][1]) <= x[i][2])
                     continue;

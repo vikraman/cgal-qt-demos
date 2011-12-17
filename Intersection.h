@@ -82,14 +82,14 @@ public:
     }
 
     Segment_const_iterator s_begin()
-        {
-            return d_container.begin();
-        }
+    {
+        return d_container.begin();
+    }
 
     Segment_const_iterator s_end()
-        {
-            return d_container.end();
-        }
+    {
+        return d_container.end();
+    }
 
 private:
     Container_IS d_container;

@@ -30,7 +30,7 @@ MainWindow::MainWindow()
     QObject::connect(this, SIGNAL(changed()),
                      chgi, SLOT(modelChanged()));
 
-    chgi->setHullPen(QPen(Qt::magenta, 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    chgi->setHullPen(QPen(Qt::darkMagenta, 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     scene.addItem(chgi);
     chgi->hide();
 
@@ -40,7 +40,7 @@ MainWindow::MainWindow()
     QObject::connect(this, SIGNAL(changed()),
                      mgi, SLOT(modelChanged()));
 
-    mgi->setLpPen(QPen(Qt::green, 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    mgi->setLpPen(QPen(Qt::darkBlue, 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     scene.addItem(mgi);
     mgi->hide();
 
@@ -50,7 +50,7 @@ MainWindow::MainWindow()
     QObject::connect(this, SIGNAL(changed()),
                      isgi, SLOT(modelChanged()));
 
-    isgi->setIsPen(QPen(Qt::cyan, 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    isgi->setIsPen(QPen(Qt::darkRed, 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     scene.addItem(isgi);
     isgi->hide();
 
@@ -74,8 +74,8 @@ MainWindow::MainWindow()
     ag->addAction(this->actionInsertLine);
 
     this->actionInsertPoint->setChecked(true);
-    this->actionInsertLine->setChecked(false);
     this->actionShowRegular->setChecked(true);
+    this->actionShowIntersection->setChecked(true);
 
     scene.setItemIndexMethod(QGraphicsScene::NoIndex);
     scene.setSceneRect(-100, -100, 100, 100);
@@ -116,7 +116,6 @@ MainWindow::processInputLines(CGAL::Object o)
             segments.push_back(Segment_2(points.front(), points.back()));
             is.insert(segments.begin(), segments.end());
             ml.insert(segments.begin(), segments.end());
-            scene.addLine(points.front().x() , points.front().y(), points.back().x() , points.back().y(), QPen(QColor(255, 0, 0)));
         }
     emit(changed());
 }
@@ -192,6 +191,8 @@ MainWindow::on_actionClear_triggered()
 {
     rt.clear();
     ch.clear();
+    ml.clear();
+    is.clear();
     emit(changed());
 }
 

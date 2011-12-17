@@ -87,9 +87,9 @@ MoldLppGraphicsItem<ML>::paint(QPainter * painter,
     painter->setPen(this->lpPen());
     painterostream = CGAL::Qt::PainterOstream<K>(painter);
 
-    if (visible)
+    if (visible && lp->size() > 2)
         {
-            typename K::Circle_2 c(lp->lpoint(), 5);
+            typename K::Circle_2 c(lp->lpoint(), 10);
             painterostream << c;
         }
 }

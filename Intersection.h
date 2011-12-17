@@ -68,7 +68,7 @@ public:
 
     std::size_t size() const
     {
-        return is.size();
+        return d_container.size();
     }
 
     Point_const_iterator is_begin()
@@ -80,6 +80,16 @@ public:
     {
         return is.end();
     }
+
+    Segment_const_iterator s_begin()
+        {
+            return d_container.begin();
+        }
+
+    Segment_const_iterator s_end()
+        {
+            return d_container.end();
+        }
 
 private:
     Container_IS d_container;

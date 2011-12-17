@@ -79,11 +79,19 @@ IntersectionGraphicsItem<IS>::paint(QPainter * painter,
                                     const QStyleOptionGraphicsItem * option,
                                     QWidget * widget)
 {
-    painter->setPen(this->isPen());
+    painter->setPen(QPen(Qt::red, 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     painterostream = CGAL::Qt::PainterOstream<K>(painter);
+    typename IS::Segment_const_iterator it;
+
+    for (it = is->s_begin(); it != is->s_end(); it++)
+        {
+            painterostream << *it;
+        }
 
     if (visible)
         {
+            painter->setPen(this->isPen());
+            painterostream = CGAL::Qt::PainterOstream<K>(painter);
             typename IS::Point_const_iterator it;
 
             for (it = is->is_begin(); it != is->is_end(); it++)

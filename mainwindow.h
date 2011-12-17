@@ -22,6 +22,10 @@
 #include <CGAL/Qt/GraphicsViewCircleInput.h>
 #include <CGAL/Qt/RegularTriangulationGraphicsItem.h>
 #include <CGAL/Qt/PowerdiagramGraphicsItem.h>
+//#include "moldlppGraphicsItem.h"
+
+#include "ConvexHull.h"
+#include "ConvexHullGraphicsItem.h"
 
 // for viewportsBox
 #include <CGAL/Qt/utility.h>
@@ -37,6 +41,7 @@ typedef K::Iso_rectangle_2 Iso_rectangle_2;
 typedef double Weight;
 typedef CGAL::Regular_triangulation_euclidean_traits_2<K, Weight>  Gt;
 typedef CGAL::Regular_triangulation_2<Gt> Regular;
+typedef ConvexHull<K, std::list<Point_2> > CHull;
 
 class MainWindow :
     public CGAL::Qt::DemosMainWindow,
@@ -46,10 +51,13 @@ class MainWindow :
 
 private:
     Regular rt;
+    CHull ch;
     QGraphicsScene scene;
 
     CGAL::Qt::RegularTriangulationGraphicsItem<Regular> * rgi;
     CGAL::Qt::PowerdiagramGraphicsItem<Regular> * vgi;
+    //CGAL::Qt::MoldGraphicsItem<Regular> * mgi;
+    ConvexHullGraphicsItem<CHull> * chgi;
 
     CGAL::Qt::RegularTriangulationRemoveVertex<Regular> * trv;
     CGAL::Qt::GraphicsViewCircleInput<K> * pi;
@@ -63,6 +71,10 @@ public slots:
     void on_actionShowRegular_toggled(bool checked);
 
     void on_actionShowPowerdiagram_toggled(bool checked);
+
+    void on_actionShowConvexHull_toggled(bool checked);
+
+    void on_actionShowMoldLpp_toggled(bool checked);
 
     void on_actionInsertPoint_toggled(bool checked);
 

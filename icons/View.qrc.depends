@@ -2,5 +2,7 @@
     <qresource prefix="/cgal/view" >
         <file>Triangulation.png</file>
         <file>Voronoi_diagram.png</file>
+        <file>Convex_hull.png</file>
+        <file>Mold_lpp.png</file>
     </qresource>
 </RCC>

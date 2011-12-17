@@ -24,6 +24,25 @@ MainWindow::MainWindow()
     scene.addItem(vgi);
     vgi->hide();
 
+    // Mold
+    //mgi = new CGAL::Qt::MoldGraphicsItem<Regular>(&rt);
+
+    //QObject::connect(this, SIGNAL(changed()),
+    //                 mgi, SLOT(modelChanged()));
+
+    //mgi->setVerticesPen(QPen(Qt::red, 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    //scene.addItem(mgi);
+
+    // ConvexHull
+    chgi = new ConvexHullGraphicsItem<CHull>(&ch);
+
+    QObject::connect(this, SIGNAL(changed()),
+                     chgi, SLOT(modelChanged()));
+
+    chgi->setHullPen(QPen(Qt::magenta, 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    scene.addItem(chgi);
+    chgi->hide();
+
     pi = new CGAL::Qt::GraphicsViewCircleInput<K>(this, &scene, 1);
 
 
@@ -65,6 +84,7 @@ MainWindow::processInput(CGAL::Object o)
         {
             Regular::Point wp(center_sqr.first, center_sqr.second);
             rt.insert(wp);
+            ch.insert(wp);
         }
 
     emit(changed());
@@ -103,9 +123,23 @@ MainWindow::on_actionShowPowerdiagram_toggled(bool checked)
 
 
 void
+MainWindow::on_actionShowConvexHull_toggled(bool checked)
+{
+    chgi->setVisible(checked);
+}
+
+
+void
+MainWindow::on_actionShowMoldLpp_toggled(bool checked)
+{
+    //mgi->setVisible(checked);
+}
+
+void
 MainWindow::on_actionClear_triggered()
 {
     rt.clear();
+    ch.clear();
     emit(changed());
 }
 
@@ -131,6 +165,7 @@ MainWindow::on_actionInsertRandomPoints_triggered()
             points.push_back(*pg++);
         }
     rt.insert(points.begin(), points.end());
+    ch.insert(points.begin(), points.end());
     // default cursor
     QApplication::setOverrideCursor(Qt::ArrowCursor);
     emit(changed());
@@ -154,6 +189,7 @@ MainWindow::on_actionLoadPoints_triggered()
                     points.push_back(p);
                 }
             rt.insert(points.begin(), points.end());
+            ch.insert(points.begin(), points.end());
 
             actionRecenter->trigger();
             emit(changed());

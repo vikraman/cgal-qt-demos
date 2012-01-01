@@ -12,7 +12,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>CGAL Regular Triangulation</string>
+   <string>cgal-qt-demos</string>
   </property>
   <property name="windowIcon">
    <iconset>

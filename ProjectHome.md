@@ -1,0 +1,1 @@
+An application to demonstrate computational geometry algorithms using CGAL in the backend and a Qt gui as the frontend
